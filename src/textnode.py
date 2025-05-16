@@ -83,14 +83,14 @@ def split_nodes_image(old_nodes):
             if not extracted_images:
                 new_nodes.append(old_node)
             else:
-                for extracted_image in extracted_images:  #FIX: If section[0] == "" it wont add the TextNode("", image, url)
+                for extracted_image in extracted_images:
                     sections = original_text.split(f"![{extracted_image[0]}]({extracted_image[1]})", 1)
                     if len(sections) != 2:
                         raise ValueError("invalid markdown, image section not closed")
                     if sections[0] != "":
                         new_nodes.append(TextNode(sections[0], TextType.NORMAL))
-                        new_nodes.append(TextNode(extracted_image[0], TextType.IMAGE, extracted_image[1]))
-                        original_text = sections[1]
+                    new_nodes.append(TextNode(extracted_image[0], TextType.IMAGE, extracted_image[1]))
+                    original_text = sections[1]
                 if (original_text != ""):
                     new_nodes.append(TextNode(original_text, TextType.NORMAL))
     return new_nodes
@@ -106,14 +106,14 @@ def split_nodes_link(old_nodes):
             if not extracted_links:
                 new_nodes.append(old_node)
             else:
-                for extracted_link in extracted_links:  #FIX: If section[0] == "" it wont add the TextNode("", link, url)
+                for extracted_link in extracted_links:
                     sections = original_text.split(f"[{extracted_link[0]}]({extracted_link[1]})", 1)
                     if len(sections) != 2:
                         raise ValueError("invalid markdown, link section not closed")
                     if sections[0] != "":
                         new_nodes.append(TextNode(sections[0], TextType.NORMAL))
-                        new_nodes.append(TextNode(extracted_link[0], TextType.LINK, extracted_link[1]))
-                        original_text = sections[1]
+                    new_nodes.append(TextNode(extracted_link[0], TextType.LINK, extracted_link[1]))
+                    original_text = sections[1]
                 if (original_text != ""):
                     new_nodes.append(TextNode(original_text, TextType.NORMAL))
     return new_nodes
