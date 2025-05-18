@@ -1,5 +1,5 @@
 import re
-from enum import Enum, auto
+from enum import Enum
 from htmlnode import LeafNode
 
 class TextType(Enum):
@@ -123,12 +123,3 @@ def text_to_textnodes(text):
     new_nodes = split_nodes_delimiter(split_nodes_delimiter(split_nodes_delimiter([node], "**", TextType.BOLD), "_",  TextType.ITALIC), "`", TextType.CODE)
     new_nodes = split_nodes_link(split_nodes_image(new_nodes))
     return new_nodes
-
-def markdown_to_blocks(markdown):
-    filtered_blocks = []
-    blocks = markdown.split("\n\n")
-    for block in blocks:
-        if block != "":
-            block = block.strip()
-            filtered_blocks.append(block)
-    return filtered_blocks

@@ -9,6 +9,15 @@ class BlockType(Enum):
     UNORDERED_LIST = "unordered list"
     ORDERED_LIST = "ordered list"
 
+def markdown_to_blocks(markdown):
+    filtered_blocks = []
+    blocks = markdown.split("\n\n")
+    for block in blocks:
+        if block != "":
+            block = block.strip()
+            filtered_blocks.append(block)
+    return filtered_blocks
+    
 def block_to_block_type(block):
     split_lines = block.splitlines()
     heading_match = all(re.match(r"^#{1,6} ", line) for line in split_lines)
