@@ -41,10 +41,7 @@ def path_purger(path):
         except OSError as error:
             print(error)
 
-def copy_source_to_directory(source_directory, destination_directory):
-    source_directory = "static"
-    destination_directory = "public"
-    
+def copy_source_to_directory(source_directory, destination_directory): 
     # Creates public directory if it does not exist. Purges if it exists
     path_purger(destination_directory)
 
