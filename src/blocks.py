@@ -1,5 +1,7 @@
 import re
 from enum import Enum
+from inline_markdown import *
+from htmlnode import *
 
 class BlockType(Enum):
     PARAGRAPH = "paragraph"
@@ -38,3 +40,87 @@ def block_to_block_type(block):
         return BlockType.ORDERED_LIST
     else:
         return BlockType.PARAGRAPH
+
+def markdown_to_html_node(markdown):
+    children = []
+    blocks = markdown_to_blocks(markdown)
+    for block in blocks:
+        parent_node = block_to_parent_node(block)
+        children.append(parent_node)
+    return ParentNode("div", children)
+
+def block_to_parent_node(block):
+        block_type = block_to_block_type(block)
+
+        match block_type:
+            case BlockType.PARAGRAPH:
+                lines = block.split("\n")
+                paragraph = " ".join(lines)
+                childrens = text_to_childrens(paragraph)
+                return ParentNode("p", childrens)
+
+            case BlockType.HEADING:                
+                if block.startswith("# "):
+                    childrens = text_to_childrens(block[2:])
+                    return ParentNode("h1", childrens)
+                elif block.startswith("## "):
+                    childrens = text_to_childrens(block[3:])
+                    return ParentNode("h2", childrens)
+                elif block.startswith("### "):
+                    childrens = text_to_childrens(block[4:])
+                    return ParentNode("h3", childrens)
+                elif block.startswith("#### "):
+                    childrens = text_to_childrens(block[5:])
+                    return ParentNode("h4", childrens)
+                elif block.startswith("##### "):
+                    childrens = text_to_childrens(block[6:])
+                    return ParentNode("h5", childrens)
+                else:
+                    childrens = text_to_childrens(block[7:])
+                    return ParentNode("h6", childrens)
+
+            case BlockType.CODE:
+                text = block[3:-3] # Fix
+                textnode = TextNode(text, TextType.NORMAL)
+                children = text_node_to_html_node(textnode)
+                return ParentNode("pre", ParentNode("code", children))
+                
+
+            case BlockType.QUOTE:
+                lines = block.split("\n")
+                new_lines = []
+                for line in lines:
+                    new_lines.append(line.lstrip(">").strip())
+                content = " ".join(new_lines)
+                childrens = text_to_childrens(content)
+                return ParentNode("blockquote", childrens)
+
+            case BlockType.UNORDERED_LIST:
+                items = block.split("\n")
+                html_items = []
+                for item in items:
+                    text = item[2:]
+                    children = text_to_childrens(text)
+                    html_items.append(ParentNode("li", children))
+                return ParentNode("ul", html_items)
+
+            case BlockType.ORDERED_LIST:
+                items = block.split("\n")
+                html_items = []
+                for item in items:
+                    text = item[3:]
+                    children = text_to_childrens(text)
+                    html_items.append(ParentNode("li", children))
+                return ParentNode("ol", html_items)           
+            case _:
+                raise ValueError("Not a valid BlockType")
+
+
+def text_to_childrens(block):
+    textnodes = text_to_textnodes(block)
+    childrens = []
+    
+    for textnode in textnodes:
+        childrens.append(text_node_to_html_node(textnode))
+    
+    return childrens
