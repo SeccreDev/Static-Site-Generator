@@ -15,8 +15,8 @@ def markdown_to_blocks(markdown):
     filtered_blocks = []
     blocks = markdown.split("\n\n")
     for block in blocks:
-        if block != "":
-            block = block.strip()
+        block = block.strip()
+        if block:
             filtered_blocks.append(block)
     return filtered_blocks
     
@@ -59,7 +59,7 @@ def block_to_parent_node(block):
                 childrens = text_to_childrens(paragraph)
                 return ParentNode("p", childrens)
 
-            case BlockType.HEADING:                
+            case BlockType.HEADING:
                 if block.startswith("# "):
                     childrens = text_to_childrens(block[2:])
                     return ParentNode("h1", childrens)
@@ -80,12 +80,11 @@ def block_to_parent_node(block):
                     return ParentNode("h6", childrens)
 
             case BlockType.CODE:
-                text = block[3:-3] # Fix
+                text = block[4:-3]
                 textnode = TextNode(text, TextType.NORMAL)
                 children = text_node_to_html_node(textnode)
-                return ParentNode("pre", ParentNode("code", children))
+                return ParentNode("pre", [ParentNode("code", [children])])
                 
-
             case BlockType.QUOTE:
                 lines = block.split("\n")
                 new_lines = []
@@ -111,7 +110,8 @@ def block_to_parent_node(block):
                     text = item[3:]
                     children = text_to_childrens(text)
                     html_items.append(ParentNode("li", children))
-                return ParentNode("ol", html_items)           
+                return ParentNode("ol", html_items)    
+
             case _:
                 raise ValueError("Not a valid BlockType")
 
