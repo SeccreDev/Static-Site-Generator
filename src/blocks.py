@@ -2,6 +2,7 @@ import re
 from enum import Enum
 from inline_markdown import *
 from htmlnode import *
+from textnode import text_node_to_html_node
 
 class BlockType(Enum):
     PARAGRAPH = "paragraph"
