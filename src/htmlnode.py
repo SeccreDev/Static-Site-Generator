@@ -63,4 +63,7 @@ class ParentNode(HTMLNode):
             return self.tag == other.tag and self.children == other.children
         else:
             return self.tag == other.tag and self.children == other.children and self.props == other.props
+    
+    def __repr__(self):
+        return f"ParentNode({self.tag}, children: {self.children}, {self.props})"
 
