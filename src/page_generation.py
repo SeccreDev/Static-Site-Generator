@@ -1,7 +1,29 @@
 import os
 import shutil
 from blocks import markdown_to_html_node
-from copy_directory import copy_source_to_directory
+from copy_directory import copy_source_to_directory, file_mover
+
+def generate_pages_recursively(from_path, template_path, dest_path):
+    static_contents = os.listdir(from_path)
+    # Debugging purposes
+    # print(f"Files inside the {source_directory} directory: {static_contents}")
+    # End
+    for content in static_contents:
+        content_path = os.path.join(from_path, content)
+        is_a_file = os.path.isfile(content_path)
+        if (is_a_file):
+            generate_page(content_path, template_path, dest_path)
+            # Debugging purposes
+            # print(f"Successfully copied {content} to {destination_directory} directory")
+            # End 
+        else:
+            destination_directory = os.path.join(dest_path, content)
+            os.mkdir(destination_directory)
+            # Debugging purposes
+            # print(f"Successfully created {destination_directory} directory")
+            # End
+            generate_pages_recursively(content_path, template_path, destination_directory)
+
 
 def generate_page(from_path, template_path, dest_path):
     print(f"Generating page from {from_path} to {dest_path} using {template_path}")
