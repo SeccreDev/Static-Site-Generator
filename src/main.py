@@ -1,14 +1,14 @@
 from copy_directory import copy_source_to_directory
-from page_generation import generate_page
+from page_generation import generate_pages_recursively
 
 def main():
     static_directory = "./static"
     public_directory = "./public"
-    markdown_path = "./content/index.md"
+    markdown_path = "./content"
     template_path = "./template.html"
 
     copy_source_to_directory(static_directory, public_directory)
-    generate_page(markdown_path, template_path, public_directory)
+    generate_pages_recursively(markdown_path, template_path, public_directory)
 
 if __name__ == "__main__":
     main()
