@@ -3,7 +3,7 @@ import shutil
 from blocks import markdown_to_html_node
 from copy_directory import copy_source_to_directory, file_mover
 
-def generate_pages_recursively(from_path, template_path, dest_path):
+def generate_pages_recursively(from_path, template_path, dest_path, basepath):
     static_contents = os.listdir(from_path)
     # Debugging purposes
     # print(f"Files inside the {source_directory} directory: {static_contents}")
@@ -12,7 +12,7 @@ def generate_pages_recursively(from_path, template_path, dest_path):
         content_path = os.path.join(from_path, content)
         is_a_file = os.path.isfile(content_path)
         if (is_a_file):
-            generate_page(content_path, template_path, dest_path)
+            generate_page(content_path, template_path, dest_path, basepath)
             # Debugging purposes
             # print(f"Successfully copied {content} to {destination_directory} directory")
             # End 
@@ -22,10 +22,10 @@ def generate_pages_recursively(from_path, template_path, dest_path):
             # Debugging purposes
             # print(f"Successfully created {destination_directory} directory")
             # End
-            generate_pages_recursively(content_path, template_path, destination_directory)
+            generate_pages_recursively(content_path, template_path, destination_directory, basepath)
 
 
-def generate_page(from_path, template_path, dest_path):
+def generate_page(from_path, template_path, dest_path, basepath):
     print(f"Generating page from {from_path} to {dest_path} using {template_path}")
     
     file = open(from_path, 'r')
@@ -38,7 +38,7 @@ def generate_page(from_path, template_path, dest_path):
 
     title = extract_title(markdown)
     html_string = markdown_to_html_node(markdown).to_html()
-    html_page = template.replace("{{ Title }}", title).replace("{{ Content }}", html_string)
+    html_page = template.replace("{{ Title }}", title).replace("{{ Content }}", html_string).replace('href="/', 'href="' + basepath).replace('src="/', 'src="' + basepath)
     
     if os.path.exists(dest_path):
         filename = "index.html"
