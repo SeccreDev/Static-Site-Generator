@@ -1,47 +1,43 @@
-# Tolkien Fan Club
+# AI Enthusiast Hub
 
-![JRR Tolkien sitting](/images/tolkien.png)
+![Artificial Intelligence concept art](/images/ai.png)
 
-Here's the deal, **I like Tolkien**.
+Here's the deal, **I like AI**.
 
-> "I am in fact a Hobbit in all but size."
+> "The development of full artificial intelligence could spell the end of the human race."
 >
-> -- J.R.R. Tolkien
+> -- Stephen Hawking
 
 ## Blog posts
 
-- [Why Glorfindel is More Impressive than Legolas](/blog/glorfindel)
-- [Why Tom Bombadil Was a Mistake](/blog/tom)
-- [The Unparalleled Majesty of "The Lord of the Rings"](/blog/majesty)
+- [Why GPT Models Are Changing the World](/blog/models)
+- [How Machine Learning Is Reshaping Industries](/blog/machine)
+- [The Ethics of Artificial Intelligence](/blog/ethics)
 
-## Reasons I like Tolkien
+## Reasons I like AI
 
-- You can spend years studying the legendarium and still not understand its depths
-- It can be enjoyed by children and adults alike
-- Disney _didn't ruin it_ (okay, but Amazon might have)
-- It created an entirely new genre of fantasy
+- You can spend years exploring its capabilities and still be amazed
+- It has applications from healthcare to art
+- It’s advancing faster than almost any other technology
+- It transforms how we interact with the world
 
-## My favorite characters (in order)
+## My favorite AI concepts (in order)
 
-1. Gandalf
-2. Bilbo
-3. Sam
-4. Glorfindel
-5. Galadriel
-6. Elrond
-7. Thorin
-8. Sauron
-9. Aragorn
+1. Natural Language Processing (NLP)
+2. Machine Learning
+3. Neural Networks
+4. Computer Vision
+5. Reinforcement Learning
+6. Generative AI
+7. Robotics
+8. Expert Systems
+9. Artificial General Intelligence (AGI)
 
-Here's what `C++` looks like (the perfect coding language):
+Here's what `Python` looks like (the perfect AI coding language):
 
 ```
-int main()
-{
-    cout << "Aiya, Ambar!";
-}
+def greet():
+    print("Hello, future!")
 ```
 
 Want to get in touch? [Contact me here](/contact).
-
-This site was generated with a custom-built [static site generator](https://www.boot.dev/courses/build-static-site-generator-python) from the course on [Boot.dev](https://www.boot.dev).

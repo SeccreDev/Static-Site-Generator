@@ -2,8 +2,8 @@
 
 [< Back Home](/)
 
-Give me a call anytime to chat about Tolkien!
+Give me a call anytime to chat about AI!
 
-`555-555-5555`
+`010-0001-111`
 
-**"Váya márië."**
+**AI**
